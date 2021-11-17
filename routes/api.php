@@ -19,6 +19,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+
 Route::namespace('rooms')->group(function(){
     Route::get('/add_room',[Rooms_controller::class,'Create']);
     Route::Post('/add_room/store',[Rooms_controller::class,'Store'])->name('rooms.store');
