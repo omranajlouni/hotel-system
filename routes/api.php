@@ -19,6 +19,15 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::namespace('reserve')->group(function(){
+    //here to the customer not hotel guest
+    Route::get('/fill_form',[Reserve_controller::class,'form']);
+    //here to hotel guest
+    Route::get('/add_reserve',[Reserve_controller::class,'check']);
+    Route::get('/accept_reserve{id}',[Reserve_controller::class,'accept']);
+    Route::get('/accept_extend{id}',[Reserve_controller::class,'accept_extend']);
+});
+
 
 Route::namespace('rooms')->group(function(){
     Route::get('/add_room',[Rooms_controller::class,'Create']);

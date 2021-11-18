@@ -14,6 +14,6 @@ class users_rooms extends Model
         'room_id',
         'status_id ',
         'duration',
-        'column_6',
+        
     ];
 }
