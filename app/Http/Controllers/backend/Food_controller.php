@@ -30,6 +30,16 @@ class Food_controller extends Controller
     {
         return "here create food";
     }
+    public function order_food()
+    {
+        $foods=food::create([
+            "user_room_id"=>$data->user_room_id,
+            "food_id"=>$data->food_id,
+            "count"=>$data->count,
+            "notes"=>$data->notes,
+            
+        ]);
+    }
 
     /**
      * Store a newly created resource in storage.
