@@ -12,7 +12,6 @@ class statuses extends Model
     protected $fillable = [
         'title',
         'person_num',
-        'column_4',
         'desc',
 
     ];

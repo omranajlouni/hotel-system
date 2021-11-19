@@ -10,7 +10,7 @@ class user_room_service extends Model
     use HasFactory;
     protected $fillable = [
         'user_room_id',
-        'clean_id',
+        'service_id',
         'status_id',
         'notes',
     ];

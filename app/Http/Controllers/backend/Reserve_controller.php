@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\users_rooms;
 use App\Models\user_notifications;
+use App\Helpers\APIHelpers;
 
 class Reserve_controller extends Controller
 {
@@ -28,6 +29,8 @@ class Reserve_controller extends Controller
             "status_id"=>$request->status_id,
             "duration"=>$request->duration,
         ]); 
+        $response= APIHelpers::createAPIResponse(false,201,'',$data);
+        return response()->json($response,200);
 
     }
     public function accept_extend(Request $request)
@@ -45,6 +48,9 @@ class Reserve_controller extends Controller
             "user_id"=>$request->user_id,
             "status_id"=>$request->status_id,
         ]); 
+
+        $response= APIHelpers::createAPIResponse(false,201,'',$data+$data2);
+        return response()->json($response,200);
 
     }
 }

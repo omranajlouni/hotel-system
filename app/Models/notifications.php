@@ -12,6 +12,6 @@ class notification extends Model
         'title',
         'desc',
         'img',
-    ];
+     ];
 
 }
