@@ -15,7 +15,7 @@ class Rooms_controller extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function show()
     {
         $rooms = Rooms::all();
         $response= APIHelpers::createAPIResponse(false,200,'',$rooms);
@@ -64,7 +64,7 @@ class Rooms_controller extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function index($id)
     {
         $rooms= rooms::find($id);
 
@@ -100,16 +100,9 @@ class Rooms_controller extends Controller
      */
     public function update(Request $request, $id)
     {
+        $data = $request()->json()->all();
         $rooms= rooms::find($id);
-        $rooms-> num= $request->num;
-        $rooms-> person_num= $request->person_num;
-        $rooms-> bath_num= $request->bath_num;
-        $rooms-> desc= $request->desc;
-        $rooms-> type= $request->type;
-        $rooms-> floor_num= $request->floor_num;
-        $rooms-> availability= $request->availability;
-        $rooms-> price= $request->price;
-        $rooms->update();
+        $rooms->update($data);
 
         if (is_null($rooms)){
             $response= APIHelpers::createAPIResponse(true,404,'not found',$rooms);

@@ -24,14 +24,15 @@ Route::namespace('reserve')->group(function(){
     Route::get('/fill_form',[Reserve_controller::class,'form']);
     //here to hotel guest
     Route::get('/add_reserve',[Reserve_controller::class,'check']);
-    Route::get('/accept_reserve{id}',[Reserve_controller::class,'accept']);
-    Route::get('/accept_extend{id}',[Reserve_controller::class,'accept_extend']);
+    Route::get('/accept_reserve',[Reserve_controller::class,'accept']);
+    Route::get('/accept_extend',[Reserve_controller::class,'accept_extend']);
 });
 
 
 Route::namespace('rooms')->group(function(){
     Route::get('/add_room',[Rooms_controller::class,'Create']);
     Route::Post('/add_room/store',[Rooms_controller::class,'Store'])->name('rooms.store');
+    Route::get('/show_room',[Rooms_controller::class,'show'])->name('rooms.show');
     Route::get('/show_room{id}',[Rooms_controller::class,'index'])->name('rooms.index');
     Route::get('/show_room/edit{id}',[Rooms_controller::class,'edit'])->name('rooms.edit');
     Route::post('/show_room/update{id}',[Rooms_controller::class,'update'])->name('rooms.update');
