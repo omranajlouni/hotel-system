@@ -15,41 +15,53 @@ class Reserve_controller extends Controller
         //here show the form
 
     }
-    public function check()
+    public function store(Request $request)
     {
-        //send the request to reseption
+        $data = $request()->json()->all();
+        $data1=users_rooms::create([
+            "user_id"=>$data->user_id,
+            "room_id"=>$data->room_id,
+            "status_id"=>$data->status_id,
+            "duration"=>$data->duration,
+        ]);
+
+        $response= APIHelpers::createAPIResponse(false,201,'the reserve added',$data1);
+        return response()->json($response,201);
 
     }
+    
     public function accept(Request $request)
     {
         //accept the request 
-        $data=users_rooms::create([
-            "user_id"=>$request->user_id,
-            "room_id"=>$request->room_id,
-            "status_id"=>$request->status_id,
-            "duration"=>$request->duration,
+        $data = $request()->json()->all();
+        $data1=users_rooms::create([
+            "user_id"=>$data->user_id,
+            "room_id"=>$data->room_id,
+            "status_id"=>$data->status_id,
+            "duration"=>$data->duration,
         ]); 
-        $response= APIHelpers::createAPIResponse(false,201,'',$data);
-        return response()->json($response,200);
+        $response= APIHelpers::createAPIResponse(false,201,'',$data1);
+        return response()->json($response,201);
 
     }
     public function accept_extend(Request $request)
     {
         //accept the request and send notification to user
-        $data=users_rooms::create([
-            "user_id"=>$request->user_id,
-            "room_id"=>$request->room_id,
-            "status_id"=>$request->status_id,
-            "duration"=>$request->duration,
+        $data = $request()->json()->all();
+        $data1=users_rooms::create([
+            "user_id"=>$data->user_id,
+            "room_id"=>$data->room_id,
+            "status_id"=>$data->status_id,
+            "duration"=>$data->duration,
         ]); 
 
         $data2=user_notifications::create([
-            "notification_id"=>$request->notification_id,
-            "user_id"=>$request->user_id,
-            "status_id"=>$request->status_id,
+            "notification_id"=>$data->notification_id,
+            "user_id"=>$data->user_id,
+            "status_id"=>$data->status_id,
         ]); 
 
-        $response= APIHelpers::createAPIResponse(false,201,'',$data+$data2);
+        $response= APIHelpers::createAPIResponse(false,201,'',$data1+$data2);
         return response()->json($response,200);
 
     }

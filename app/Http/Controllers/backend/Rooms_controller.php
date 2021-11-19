@@ -40,16 +40,16 @@ class Rooms_controller extends Controller
      */
     public function store(Request $request)
     {
-
+        $data = $request()->json()->all();
         $rooms=rooms::create([
-            "num"=>$request->num,
-            "person_num"=>$request->person_num,
-            "bath_num"=>$request->bath_num,
-            "desc"=>$request->desc,
-            "type"=>$request->type,
-            "floor_num"=>$request->floor_num,
-            "availability"=>$request->availability,
-            "price"=>$request->price,
+            "num"=>$data->num,
+            "person_num"=>$data->person_num,
+            "bath_num"=>$data->bath_num,
+            "desc"=>$data->desc,
+            "type"=>$data->type,
+            "floor_num"=>$data->floor_num,
+            "availability"=>$data->availability,
+            "price"=>$data->price,
 
 
         ]);

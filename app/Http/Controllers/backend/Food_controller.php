@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Helpers\APIHelpers;
 use Illuminate\Http\Request;
 use App\Models\food;
+use App\Models\users_rooms_food;
+use App\Models\user_notifications;
 
 class Food_controller extends Controller
 {
@@ -30,15 +32,19 @@ class Food_controller extends Controller
     {
         return "here create food";
     }
-    public function order_food()
+
+    public function order_food(Request $request)
     {
-        $foods=food::create([
+        $data = $request()->json()->all();
+        $food=users_rooms_food::create([
             "user_room_id"=>$data->user_room_id,
             "food_id"=>$data->food_id,
             "count"=>$data->count,
             "notes"=>$data->notes,
             
         ]);
+        $response= APIHelpers::createAPIResponse(false,201,'food added',$food);
+        return response()->json($response,201);
     }
 
     /**
@@ -49,8 +55,7 @@ class Food_controller extends Controller
      */
     public function store(Request $request)
     {
-        $jsonString = file_get_contents(base_path('resources/lang/en.json'));
-        $data = json_decode($jsonString, true);
+        $data = $request()->json()->all();
 
         if($data->hasFile('img')){
             $file=$data->img;
@@ -65,7 +70,7 @@ class Food_controller extends Controller
             "price"=>$data->price,
         ]);
         $response= APIHelpers::createAPIResponse(false,201,'',$foods);
-        return response()->json($response,200);
+        return response()->json($response,201);
         
     }
 
@@ -104,17 +109,18 @@ class Food_controller extends Controller
      */
     public function update(Request $request, $id)
     {
-        if($request->hasFile('img')){
-            $file=$request->img;
+        $data = $request()->json()->all();
+        if($data->hasFile('img')){
+            $file=$data->img;
             $new_file = time().$file-> getClientOriginalName();
             $file->move('/storage/food_img/'. $new_file);
         }
 
         $foods= food::find($id);
-        $foods-> title= $request->title;
-        $foods-> desc= $request->desc;
+        $foods-> title= $data->title;
+        $foods-> desc= $data->desc;
         $foods-> img= '/storage/food_img'. $new_file;
-        $foods-> price= $request->price;
+        $foods-> price= $data->price;
         $foods->update();
 
         if (is_null($foods)){
@@ -126,12 +132,7 @@ class Food_controller extends Controller
         return response()->json($response,200);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+   
     public function destroy($id)
     {
         $foods= food::find($id);
@@ -142,5 +143,27 @@ class Food_controller extends Controller
         }
         $response= APIHelpers::createAPIResponse(false,200,'delete success',$foods);
         return response()->json($response,200);
+    }
+    public function show_food_order()
+    {
+        $orders = users_rooms_food::all();
+
+        $response= APIHelpers::createAPIResponse(false,200,'here all orders ',$orders);
+        return response()->json($response,200);
+
+    }
+    public function accept_order(Request $request)
+    {
+        $data = $request()->json()->all();
+
+        $data=user_notifications::create([
+            "notification_id"=>$data->notification_id,
+            "user_id"=>$data->user_id,
+            "status_id"=>$data->status_id,
+        ]); 
+        
+        $response= APIHelpers::createAPIResponse(false,200,'here all orders ',$data);
+        return response()->json($response,200);
+
     }
 }

@@ -23,9 +23,9 @@ Route::namespace('reserve')->group(function(){
     //here to the customer not hotel guest
     Route::get('/fill_form',[Reserve_controller::class,'form']);
     //here to hotel guest
-    Route::get('/add_reserve',[Reserve_controller::class,'check']);
-    Route::get('/accept_reserve',[Reserve_controller::class,'accept']);
-    Route::get('/accept_extend',[Reserve_controller::class,'accept_extend']);
+    Route::get('/add_reserve',[Reserve_controller::class,'store'])->name('reserve.store');
+    Route::get('/accept_reserve',[Reserve_controller::class,'accept'])->name('reserve.accept');
+    Route::get('/accept_extend',[Reserve_controller::class,'accept_extend'])->name('reserve.accept_extend');
 });
 
 
@@ -47,6 +47,9 @@ Route::namespace('foods')->group(function(){
     Route::get('/show_food/edit{id}',[Food_controller::class,'edit'])->name('food.edit');
     Route::post('/show_food/update{id}',[Food_controller::class,'update'])->name('food.update');
     Route::post('/show_food/delete{id}',[Food_controller::class,'destroy'])->name('food.destroy');
+    Route::Post('/order_food',[Food_controller::class,'order_food'])->name('food.order_food');
+    Route::get('/show_food_order',[Food_controller::class,'show_food_order'])->name('food.show_order');
+    Route::get('/show_food_order/accept',[Food_controller::class,'accept_order'])->name('food.accept_order');
 });
 
 Route::namespace('service')->group(function(){
