@@ -15,6 +15,16 @@ class Reserve_controller extends Controller
         //here show the form
 
     }
+
+     
+    public function show()
+    {
+        $reservs = users_rooms::all();
+        $response= APIHelpers::createAPIResponse(false,200,'here is all the reservations',$reservs);
+        return response()->json($response,200);
+    }
+
+
     public function store(Request $request)
     {
         $data = $request()->json()->all();
