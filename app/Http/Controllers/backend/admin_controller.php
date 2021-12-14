@@ -4,6 +4,8 @@ namespace App\Http\Controllers\backend;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Helpers\APIHelpers;
+use App\Models\review;
 
 class admin_controller extends Controller
 {
@@ -14,13 +16,13 @@ class admin_controller extends Controller
     }
     public function show_review()
     {
-        //here show the report to reviews
+        //here show report of reviews
+        $reviews = review::all();
+        $response= APIHelpers::createAPIResponse(false,200,'here is all reviews',$reviews);
+        return response()->json($response,200);
+
 
     }
-    public function room_status()
-    {
-        //here show the report to reviews
-
-    }
+    
     
 }
