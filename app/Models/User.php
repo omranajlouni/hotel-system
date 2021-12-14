@@ -4,13 +4,13 @@ namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Foundation\Auth\user as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable
+class user extends Authenticatable
 { 
     use HasApiTokens;
     use HasFactory;
@@ -58,4 +58,13 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+    public function user_notifications(){
+        return $this->hasMany("App\Models\user_notifications","user_id");
+    }
+    public function users_rooms(){
+        return $this->hasMany("App\Models\users_rooms","user_id");
+    }
+    public function review(){
+        return $this->hasMany("App\Models\review","user_id");
+    }
 }

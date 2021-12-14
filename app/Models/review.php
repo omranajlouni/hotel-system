@@ -13,4 +13,7 @@ class review extends Model
         'user_id',
         'desc',
     ];
+    public function user(){
+        return $this->belongsTo("App\Models\user","user_id");
+    }       
 }

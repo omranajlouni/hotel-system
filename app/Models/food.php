@@ -14,4 +14,7 @@ class food extends Model
         'desc',
         'price',
     ];
+    public function users_rooms_food(){
+        return $this->hasMany("App\Models\users_rooms_food","food_id");
+    }            
 }

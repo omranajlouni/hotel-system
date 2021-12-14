@@ -12,5 +12,7 @@ class service extends Model
         'title',
         'desc',
     ];
-
+    public function user_room_service(){
+        return $this->hasMany("App\Models\user_room_service","service_id");
+    }
 }

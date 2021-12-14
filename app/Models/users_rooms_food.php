@@ -15,4 +15,13 @@ class users_rooms_food extends Model
         'count',
         'notes',
         ];
+        public function statuses(){
+            return $this->belongsTo("App\Models\statuses","status_id");
+        }
+        public function users_rooms(){
+            return $this->belongsTo("App\Models\users_rooms","user_room_id");
+        }
+        public function food(){
+            return $this->belongsTo("App\Models\food","food_id");
+        }           
 }

@@ -13,5 +13,7 @@ class notification extends Model
         'desc',
         'img',
      ];
-
+    public function user_notifications(){
+        return $this->hasMany("App\Models\user_notifications","notification_id");
+    }
 }

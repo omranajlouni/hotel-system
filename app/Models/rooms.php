@@ -20,4 +20,7 @@ class rooms extends Model
         'price',
 
     ];
+    public function users_rooms(){
+        return $this->hasMany("App\Models\users_rooms","room_id");
+    }    
 }

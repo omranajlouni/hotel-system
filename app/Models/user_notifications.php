@@ -13,4 +13,13 @@ class user_notifications extends Model
         'user_id',
         'status_id',
     ];
+    public function notification(){
+        return $this->belongsTo("App\Models\notification","notification_id");
+    }            
+    public function user(){
+        return $this->belongsTo("App\Models\user","user_id");
+    }            
+    public function statuses(){
+        return $this->belongsTo("App\Models\statuses","status_id");
+    }                    
 }

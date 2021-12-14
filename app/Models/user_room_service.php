@@ -14,4 +14,13 @@ class user_room_service extends Model
         'status_id',
         'notes',
     ];
+    public function statuses(){
+        return $this->belongsTo("App\Models\statuses","status_id");
+    }
+    public function users_rooms(){
+        return $this->belongsTo("App\Models\users_rooms","user_room_id");
+    }
+    public function service(){
+        return $this->belongsTo("App\Models\service","service_id");
+    }            
 }
