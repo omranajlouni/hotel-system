@@ -16,7 +16,8 @@ class Service_controller extends Controller
          return "here create sevice";
     }
 
-    public function store(Request $request)
+
+    public function add_service_request(Request $request)
     {
         $data = $request()->json()->all();
         $service=user_room_service::create([
@@ -30,6 +31,7 @@ class Service_controller extends Controller
         return response()->json($response,200);
     }
 
+
     public function index($id)
     {
         $service= user_room_service::find($id);
@@ -39,9 +41,10 @@ class Service_controller extends Controller
             return response()->json($response,404);
         }
 
-        $response= APIHelpers::createAPIResponse(false,200,'',$service);
+        $response= APIHelpers::createAPIResponse(false,200,'here is service request',$service);
         return response()->json($response,200);
     }
+
 
     public function show()
     {
@@ -49,6 +52,7 @@ class Service_controller extends Controller
         $response= APIHelpers::createAPIResponse(false,200,'here is all services',$service);
         return response()->json($response,200);
     }
+
 
     public function show_user_service(Request $request)
     {
@@ -62,21 +66,26 @@ class Service_controller extends Controller
         return response()->json($response,200);
     }
 
+
     public function accept(Request $request)
     {
         $data = $request()->json()->all();
+        $service= user_room_service::find($data->id);
+        
+        if (is_null($service)){
+            $response= APIHelpers::createAPIResponse(true,404,'service not found',$data);
+            return response()->json($response,404);
+        }
         $data1=user_notifications::create([
             "notification_id"=>$data->notification_id,
             "user_id"=>$data->user_id,
             "status_id"=>$data->status_id,
         ]); 
-        if (is_null($data1)){
-            $response= APIHelpers::createAPIResponse(true,404,'not found',$data1);
-            return response()->json($response,404);
-        }
         $response= APIHelpers::createAPIResponse(false,200,'service has been accepted',$data1);
         return response()->json($response,200);
     }
+
+
     public function decline(Request $request)
     {
         $data = $request()->json()->all();

@@ -10,12 +10,14 @@ use App\Helpers\APIHelpers;
 
 class Reserve_controller extends Controller
 {
+
     public function form()
     {
         //here show the form
 
     }
 
+    
      
     public function show()
     {
@@ -23,6 +25,7 @@ class Reserve_controller extends Controller
         $response= APIHelpers::createAPIResponse(false,200,'here is all the reservations',$reservs);
         return response()->json($response,200);
     }
+
 
 
     public function store(Request $request)
@@ -40,6 +43,8 @@ class Reserve_controller extends Controller
 
     }
     
+
+
     public function accept(Request $request)
     {
         //accept the request 
@@ -54,6 +59,9 @@ class Reserve_controller extends Controller
         return response()->json($response,201);
 
     }
+
+
+
     public function accept_extend(Request $request)
     {
         //accept the request and send notification to user

@@ -54,11 +54,11 @@ Route::namespace('foods')->group(function(){
 
 Route::namespace('service')->group(function(){
     Route::get('/add_service',[Service_controller::class,'Create']);
-    Route::Post('/add_service/store',[Service_controller::class,'Store'])->name('service.store');
-    Route::get('/show_service',[Service_controller::class,'show'])->name('service.show');
-    Route::get('/show_service{id}',[Service_controller::class,'index'])->name('service.index');
-    Route::Post('/show_service/accept',[Service_controller::class,'accept'])->name('service.accept');
-    Route::Post('/show_service/decline',[Service_controller::class,'decline'])->name('service.decline');
+    Route::Post('/add_service/add_service_request',[Service_controller::class,'add_service_request'])->name('service.add_service_request');
+    Route::get('/show_all_service_request',[Service_controller::class,'show'])->name('service.show');
+    Route::get('/show_service_request{id}',[Service_controller::class,'index'])->name('service.index');
+    Route::Post('/show_service_request/accept',[Service_controller::class,'accept'])->name('service.accept');
+    Route::Post('/show_service_request/decline',[Service_controller::class,'decline'])->name('service.decline');
     //to see user services
     Route::get('/show_user_service',[Service_controller::class,'show_user_service'])->name('service.show_user_service');
    

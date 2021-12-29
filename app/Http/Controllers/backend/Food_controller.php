@@ -74,12 +74,7 @@ class Food_controller extends Controller
         
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+ 
     public function index($id)
     {
         $foods = food::find($id);
@@ -87,12 +82,7 @@ class Food_controller extends Controller
         return response()->json($response,200);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    
     public function edit($id)
     {
         $foods = food::find($id);
@@ -100,13 +90,7 @@ class Food_controller extends Controller
         return response()->json($response,200);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    
     public function update(Request $request, $id)
     {
         $data = $request()->json()->all();
