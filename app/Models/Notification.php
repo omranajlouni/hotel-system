@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class notification extends Model
+class Notification extends Model
 {
     use HasFactory;
     protected $fillable = [
@@ -13,7 +13,7 @@ class notification extends Model
         'desc',
         'img',
      ];
-    public function user_notifications(){
-        return $this->hasMany("App\Models\user_notifications","notification_id");
+    public function userNotification(){
+        return $this->hasMany("App\Models\UserNotification","notification_id");
     }
 }

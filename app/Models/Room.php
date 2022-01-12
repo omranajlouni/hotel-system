@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class rooms extends Model
+class Room extends Model
 {
     use HasFactory;
 
@@ -20,7 +20,7 @@ class rooms extends Model
         'price',
 
     ];
-    public function users_rooms(){
-        return $this->hasMany("App\Models\users_rooms","room_id");
+    public function userRoom(){
+        return $this->hasMany("App\Models\UserRoom","room_id");
     }    
 }

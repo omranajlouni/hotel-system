@@ -4,8 +4,8 @@ namespace App\Http\Controllers\backend;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\users_rooms;
-use App\Models\user_notifications;
+use App\Models\UserRoom;
+use App\Models\UserNotification;
 use App\Helpers\APIHelpers;
 
 class Reserve_controller extends Controller
@@ -19,7 +19,7 @@ class Reserve_controller extends Controller
      
     public function show()
     {
-        $reservs = users_rooms::all();
+        $reservs = UserRoom::all();
         $response= APIHelpers::createAPIResponse(false,200,'here is all the reservations',$reservs);
         return response()->json($response,200);
     }
@@ -28,7 +28,7 @@ class Reserve_controller extends Controller
     public function store(Request $request)
     {
         $data = $request()->json()->all();
-        $data1=users_rooms::create([
+        $data1=UserRoom::create([
             "user_id"=>$data->user_id,
             "room_id"=>$data->room_id,
             "status_id"=>$data->status_id,
@@ -44,7 +44,7 @@ class Reserve_controller extends Controller
     {
         //accept the request 
         $data = $request()->json()->all();
-        $data1=users_rooms::create([
+        $data1=UserRoom::create([
             "user_id"=>$data->user_id,
             "room_id"=>$data->room_id,
             "status_id"=>$data->status_id,
@@ -56,16 +56,16 @@ class Reserve_controller extends Controller
     }
     public function accept_extend(Request $request)
     {
-        //accept the request and send notification to user
+        //accept the request and send Notification to user
         $data = $request()->json()->all();
-        $data1=users_rooms::create([
+        $data1=UserRoom::create([
             "user_id"=>$data->user_id,
             "room_id"=>$data->room_id,
             "status_id"=>$data->status_id,
             "duration"=>$data->duration,
         ]); 
 
-        $data2=user_notifications::create([
+        $data2=UserNotification::create([
             "notification_id"=>$data->notification_id,
             "user_id"=>$data->user_id,
             "status_id"=>$data->status_id,

@@ -5,8 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class food extends Model
+class Food extends Model
 {
+    protected $table = 'foods'; 
     use HasFactory;
     protected $fillable = [
         'title',
@@ -14,7 +15,7 @@ class food extends Model
         'desc',
         'price',
     ];
-    public function users_rooms_food(){
-        return $this->hasMany("App\Models\users_rooms_food","food_id");
+    public function userRoomFood(){
+        return $this->hasMany("App\Models\UserRoomFood","food_id");
     }            
 }

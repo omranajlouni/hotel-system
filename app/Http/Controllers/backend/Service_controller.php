@@ -4,10 +4,10 @@ namespace App\Http\Controllers\backend;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\service;
+use App\Models\Service;
 use App\Helpers\APIHelpers;
-use App\Models\user_notifications;
-use App\Models\user_room_service;
+use App\Models\UserNotification;
+use App\Models\UserRoomService;
 
 class Service_controller extends Controller
 {
@@ -19,7 +19,7 @@ class Service_controller extends Controller
     public function store(Request $request)
     {
         $data = $request()->json()->all();
-        $service=user_room_service::create([
+        $service=UserRoomService::create([
             "user_room_id"=>$data->user_room_id,
             "service_id"=>$data->service_id,
             "status_id"=>$data->status_id,
@@ -32,7 +32,7 @@ class Service_controller extends Controller
 
     public function index($id)
     {
-        $service= user_room_service::find($id);
+        $service= UserRoomService::find($id);
 
         if (is_null($service)){
             $response= APIHelpers::createAPIResponse(true,404,'not found',$service);
@@ -45,7 +45,7 @@ class Service_controller extends Controller
 
     public function show()
     {
-        $service = user_room_service::all();
+        $service = UserRoomService::all();
         $response= APIHelpers::createAPIResponse(false,200,'here is all services',$service);
         return response()->json($response,200);
     }
@@ -53,9 +53,9 @@ class Service_controller extends Controller
     public function show_user_service(Request $request)
     {
         $user_room_id=$request->user_room_id;
-        $service = user_room_service::all();
+        $service = UserRoomService::all();
         foreach ($service as $ser) { 
-            if(user_room_service::where('user_room_id', $user_room_id))
+            if(UserRoomService::where('user_room_id', $user_room_id))
                     $user_service =+$ser;
             }
         $response= APIHelpers::createAPIResponse(false,200,'here is all services',$user_service);
@@ -65,7 +65,7 @@ class Service_controller extends Controller
     public function accept(Request $request)
     {
         $data = $request()->json()->all();
-        $data1=user_notifications::create([
+        $data1=UserNotification::create([
             "notification_id"=>$data->notification_id,
             "user_id"=>$data->user_id,
             "status_id"=>$data->status_id,
@@ -80,7 +80,7 @@ class Service_controller extends Controller
     public function decline(Request $request)
     {
         $data = $request()->json()->all();
-        $data1=user_notifications::create([
+        $data1=UserNotification::create([
             "notification_id"=>$data->notification_id,
             "user_id"=>$data->user_id,
             "status_id"=>$data->status_id,

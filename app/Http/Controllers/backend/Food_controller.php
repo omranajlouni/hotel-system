@@ -5,9 +5,9 @@ namespace App\Http\Controllers\backend;
 use App\Http\Controllers\Controller;
 use App\Helpers\APIHelpers;
 use Illuminate\Http\Request;
-use App\Models\food;
-use App\Models\users_rooms_food;
-use App\Models\user_notifications;
+use App\Models\Food;
+use App\Models\UserRoomFood;
+use App\Models\UserNotification;
 
 class Food_controller extends Controller
 {
@@ -18,7 +18,7 @@ class Food_controller extends Controller
      */
     public function show()
     {
-        $foods = food::all();
+        $foods = Food::all();
         $response= APIHelpers::createAPIResponse(false,200,'',$foods);
         return response()->json($response,200);
     }
@@ -30,20 +30,20 @@ class Food_controller extends Controller
      */
     public function create()
     {
-        return "here create food";
+        return "here create Food";
     }
 
     public function order_food(Request $request)
     {
         $data = $request()->json()->all();
-        $food=users_rooms_food::create([
+        $food=UserRoomFood::create([
             "user_room_id"=>$data->user_room_id,
             "food_id"=>$data->food_id,
             "count"=>$data->count,
             "notes"=>$data->notes,
             
         ]);
-        $response= APIHelpers::createAPIResponse(false,201,'food added',$food);
+        $response= APIHelpers::createAPIResponse(false,201,'Food added',$food);
         return response()->json($response,201);
     }
 
@@ -63,7 +63,7 @@ class Food_controller extends Controller
             $file->move('/storage/food_img/'. $new_file);
         }
 
-        $foods=food::create([
+        $foods=Food::create([
             "title"=>$data->title,
             "img"=>'/storage/food_img'. $new_file,
             "desc"=>$data->desc,
@@ -82,7 +82,7 @@ class Food_controller extends Controller
      */
     public function index($id)
     {
-        $foods = food::find($id);
+        $foods = Food::find($id);
         $response= APIHelpers::createAPIResponse(false,200,'',$foods);
         return response()->json($response,200);
     }
@@ -95,7 +95,7 @@ class Food_controller extends Controller
      */
     public function edit($id)
     {
-        $foods = food::find($id);
+        $foods = Food::find($id);
         $response= APIHelpers::createAPIResponse(false,200,'',$foods);
         return response()->json($response,200);
     }
@@ -116,7 +116,7 @@ class Food_controller extends Controller
             $file->move('/storage/food_img/'. $new_file);
         }
 
-        $foods= food::find($id);
+        $foods= Food::find($id);
         $foods-> title= $data->title;
         $foods-> desc= $data->desc;
         $foods-> img= '/storage/food_img'. $new_file;
@@ -135,7 +135,7 @@ class Food_controller extends Controller
    
     public function destroy($id)
     {
-        $foods= food::find($id);
+        $foods= Food::find($id);
         $foods->destroy($id);
         if (is_null($foods)){
             $response= APIHelpers::createAPIResponse(true,404,'not found',$foods);
@@ -146,7 +146,7 @@ class Food_controller extends Controller
     }
     public function show_food_order()
     {
-        $orders = users_rooms_food::all();
+        $orders = UserRoomFood::all();
 
         $response= APIHelpers::createAPIResponse(false,200,'here all orders ',$orders);
         return response()->json($response,200);
@@ -156,7 +156,7 @@ class Food_controller extends Controller
     {
         $data = $request()->json()->all();
 
-        $data=user_notifications::create([
+        $data=UserNotification::create([
             "notification_id"=>$data->notification_id,
             "user_id"=>$data->user_id,
             "status_id"=>$data->status_id,

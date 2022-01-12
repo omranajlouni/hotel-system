@@ -6,7 +6,7 @@ use App\Helpers\APIHelpers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
-use App\Models\rooms;
+use App\Models\Room;
 
 class Rooms_controller extends Controller
 {
@@ -14,7 +14,7 @@ class Rooms_controller extends Controller
     
     public function show()
     {
-        $rooms = Rooms::all();
+        $rooms = Room::all();
         $response= APIHelpers::createAPIResponse(false,200,'',$rooms);
         return response()->json($response,200);
     }
@@ -31,7 +31,7 @@ class Rooms_controller extends Controller
     public function store(Request $request)
     {
         $data = $request()->json()->all();
-        $rooms=rooms::create([
+        $rooms=Room::create([
             "num"=>$data->num,
             "person_num"=>$data->person_num,
             "bath_num"=>$data->bath_num,
@@ -51,7 +51,7 @@ class Rooms_controller extends Controller
     
     public function index($id)
     {
-        $rooms= rooms::find($id);
+        $rooms= Room::find($id);
 
         if (is_null($rooms)){
             $response= APIHelpers::createAPIResponse(true,404,'not found',$rooms);
@@ -66,7 +66,7 @@ class Rooms_controller extends Controller
     
     public function edit($id)
     {
-        $rooms = Rooms::find($id);
+        $rooms = Room::find($id);
 
         $response= APIHelpers::createAPIResponse(false,200,'',$rooms);
         return response()->json($response,200);
@@ -77,7 +77,7 @@ class Rooms_controller extends Controller
     public function update(Request $request, $id)
     {
         $data = $request()->json()->all();
-        $rooms= rooms::find($id);
+        $rooms= Room::find($id);
         $rooms->update($data);
 
         if (is_null($rooms)){
@@ -94,7 +94,7 @@ class Rooms_controller extends Controller
 
     public function destroy($id)
     {
-        $rooms= rooms::find($id);
+        $rooms= Room::find($id);
         $rooms->destroy($id);
         if (is_null($rooms)){
             $response= APIHelpers::createAPIResponse(false,404,'not found',$rooms);
